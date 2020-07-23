@@ -23,7 +23,11 @@
       title="Password"
       type="password"
     />
-    <div v-if="!!errorMessage">{{ errorMessage }}</div>
+    <error-message
+      v-if="!!errorMessage"
+      :message="errorMessage"
+      :styles="styles"
+    />
     <button :disabled="isBusy" @click="onSubmit" :class="primaryCtaButtonClass">
       <spinner v-if="isBusy" />
       <span v-if="!isBusy">
@@ -40,6 +44,7 @@
 </template>
 
 <script>
+import ErrorMessage from "../ErrorMessage/ErrorMessage.vue";
 import FormInput from "../FormInput/FormInput.vue";
 import Spinner from "../Spinner/Spinner.vue";
 import { css } from "emotion";
@@ -47,6 +52,7 @@ import { css } from "emotion";
 export default {
   name: "EmailPasswordAuthenticationFormSignIn",
   components: {
+    ErrorMessage,
     FormInput,
     Spinner
   },
@@ -96,16 +102,14 @@ export default {
             throw new Error("Email or password is incorrect.");
           return this.$feather.newCurrentUser(credential.token);
         })
-        .then(currentUser => {
+        .then(() => {
           this.setIsBusy(false);
           this.errorMessage = null;
-          console.log(currentUser);
         })
         .catch(e => {
           // Handle errors
           this.setIsBusy(false);
           this.errorMessage = e.message;
-          console.error(e);
         });
     }
   }

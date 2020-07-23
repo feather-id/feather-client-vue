@@ -12,7 +12,11 @@
       title="New Password"
       type="password"
     />
-    <div v-if="!!errorMessage">{{ errorMessage }}</div>
+    <error-message
+      v-if="!!errorMessage"
+      :message="errorMessage"
+      :styles="styles"
+    />
     <button :disabled="isBusy" @click="onSubmit" :class="primaryCtaButtonClass">
       <spinner v-if="isBusy" />
       <span v-if="!isBusy">
@@ -23,6 +27,7 @@
 </template>
 
 <script>
+import ErrorMessage from "../ErrorMessage/ErrorMessage.vue";
 import FormInput from "../FormInput/FormInput.vue";
 import Spinner from "../Spinner/Spinner.vue";
 import { css } from "emotion";
@@ -30,6 +35,7 @@ import { css } from "emotion";
 export default {
   name: "EmailPasswordAuthenticationFormNewPassword",
   components: {
+    ErrorMessage,
     FormInput,
     Spinner
   },
