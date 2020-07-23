@@ -12,7 +12,7 @@
     />
     <div v-if="!!errorMessage">{{ errorMessage }}</div>
     <button :disabled="isBusy" @click="onSubmit" :class="primaryCtaButtonClass">
-      <div class="spinner" v-if="isBusy">Loading</div>
+      <spinner v-if="isBusy" />
       <span v-if="!isBusy">
         Continue
       </span>
@@ -22,12 +22,14 @@
 
 <script>
 import VerificationCodeInput from "../VerificationCodeInput/VerificationCodeInput.vue";
+import Spinner from "../Spinner/Spinner.vue";
 import { css } from "emotion";
 
 export default {
   name: "EmailPasswordAuthenticationFormForgotPassword",
   components: {
-    VerificationCodeInput
+    VerificationCodeInput,
+    Spinner
   },
   props: {
     isBusy: Boolean,
