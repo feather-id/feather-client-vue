@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("clicked on submit!");
       this.setIsBusy(true);
       const verificationCode = this.verificationCode;
       this.$feather

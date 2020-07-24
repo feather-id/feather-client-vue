@@ -57,11 +57,6 @@ export default {
         ${this.styles.forgotPasswordButton}
       ` //TODO rename this
     };
-  },
-  methods: {
-    onSubmit() {
-      console.log("clicked on submit!");
-    }
   }
 };
 </script>

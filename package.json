@@ -1,10 +1,10 @@
 {
-  "name": "vue-demo",
-  "version": "0.1.0",
+  "name": "feather-client-vue",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name featherVue index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
