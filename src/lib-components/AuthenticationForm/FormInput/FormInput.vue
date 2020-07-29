@@ -18,7 +18,7 @@
       :placeholder="placeholder"
       :type="type"
       :value="value"
-      @input="$emit('input', $event.target.value)"
+      @change="onChange"
     />
   </div>
 </template>
@@ -27,10 +27,11 @@
 import { css } from "emotion";
 
 export default {
-  name: "VerificationCodeInput",
+  name: "FormInput",
   props: [
     "helpButton",
     "name",
+    "onChange",
     "placeholder",
     "styles",
     "title",
@@ -61,8 +62,4 @@ export default {
 };
 </script>
 
-<style>
-.feather-authentication-form {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
-</style>
+<style></style>

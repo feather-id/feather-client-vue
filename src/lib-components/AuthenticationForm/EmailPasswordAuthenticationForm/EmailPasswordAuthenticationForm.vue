@@ -115,8 +115,4 @@ export default {
 };
 </script>
 
-<style>
-.feather-authentication-form {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
-</style>
+<style></style>

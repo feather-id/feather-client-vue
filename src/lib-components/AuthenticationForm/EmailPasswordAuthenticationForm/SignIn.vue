@@ -1,15 +1,26 @@
 <template>
   <div>
-    <p :class="titleClass">
-      New Password
-    </p>
+    <!-- TODO parameterize the title text -->
+    <p :class="titleClass">Sign in</p>
+
     <form-input
-      :onChange="onChangePassword"
+      :class="subtitleClass"
       :styles="styles"
+      :onChange="onChangeInput"
+      :value="email"
+      name="emailInput"
+      placeholder
+      title="Email"
+      type="email"
+    />
+    <form-input
+      :helpButton="helpButton"
+      :styles="styles"
+      :onChange="onChangeInput"
       :value="password"
       name="passwordInput"
-      placeholder=""
-      title="New Password"
+      placeholder
+      title="Password"
       type="password"
     />
     <error-message
@@ -20,8 +31,14 @@
     <button :disabled="isBusy" @click="onSubmit" :class="primaryCtaButtonClass">
       <spinner v-if="isBusy" />
       <span v-if="!isBusy">
-        Update Password
+        Login!
       </span>
+    </button>
+    <button
+      :class="secondaryCtaButtonClass"
+      @click="e => setCurrentForm('sign_up')"
+    >
+      Go to sign up
     </button>
   </div>
 </template>
@@ -33,7 +50,7 @@ import Spinner from "../Spinner/Spinner.vue";
 import { css } from "emotion";
 
 export default {
-  name: "EmailPasswordAuthenticationFormNewPassword",
+  name: "EmailPasswordAuthenticationFormSignIn",
   components: {
     ErrorMessage,
     FormInput,
@@ -41,12 +58,15 @@ export default {
   },
   props: {
     email: String,
-    input: Object,
     isBusy: Boolean,
+    password: String,
     onChangeInput: Function,
     setCurrentForm: Function,
     setIsBusy: Function,
     styles: Object
+  },
+  filters: {
+    css
   },
   data() {
     return {
@@ -66,37 +86,34 @@ export default {
         title: "Forgot Password?",
         onClick: () => this.setCurrentForm("forgot_password")
       },
-      errorMessage: null,
-      password: ""
+      errorMessage: null
     };
   },
   methods: {
-    onChangePassword(event) {
-      this.password = event.target.value;
-    },
     onSubmit() {
       this.setIsBusy(true);
-      const password = this.password;
       this.$feather
-        .currentCredential()
-        .then(credential =>
-          this.$feather.passwords.create(password, credential.token)
-        )
-        .then(() =>
-          this.$feather.newCurrentCredential({ email: this.email, password })
-        )
-        .then(credential => this.$feather.newCurrentUser(credential.token))
-        .catch(error => {
+        .newCurrentCredential({
+          email: this.email,
+          password: this.password
+        })
+        .then(credential => {
+          if (credential.status !== "valid")
+            throw new Error("Email or password is incorrect.");
+          return this.$feather.newCurrentUser(credential.token);
+        })
+        .then(() => {
           this.setIsBusy(false);
-          this.errorMessage = error.message;
+          this.errorMessage = null;
+        })
+        .catch(e => {
+          // Handle errors
+          this.setIsBusy(false);
+          this.errorMessage = e.message;
         });
     }
   }
 };
 </script>
 
-<style>
-.feather-authentication-form {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-}
-</style>
+<style></style>

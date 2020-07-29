@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import EmailPasswordAuthenticationForm from "./EmailPasswordAuthenticationForm/EmailPasswordAuthenticationForm";
+import EmailPasswordAuthenticationForm from "./EmailPasswordAuthenticationForm/EmailPasswordAuthenticationForm.vue";
 import { defaultStyles } from "./styles.js";
 import { mergeStyles } from "./utils.js";
 
