@@ -71,7 +71,7 @@ if (!argv.format || argv.format === "es") {
     ...baseConfig,
     external,
     output: {
-      file: "dist/phil-test.esm.js",
+      file: "dist/feather-client-vue.esm.js",
       format: "esm",
       exports: "named"
     },
@@ -105,7 +105,7 @@ if (!argv.format || argv.format === "cjs") {
     external,
     output: {
       compact: true,
-      file: "dist/phil-test.ssr.js",
+      file: "dist/feather-client-vue.ssr.js",
       format: "cjs",
       name: "FeatherClientVue",
       exports: "named",
@@ -134,7 +134,7 @@ if (!argv.format || argv.format === "iife") {
     external,
     output: {
       compact: true,
-      file: "dist/phil-test.min.js",
+      file: "dist/feather-client-vue.min.js",
       format: "iife",
       name: "FeatherClientVue",
       exports: "named",
